@@ -1,0 +1,2 @@
+# dummy variable
+LOCAL_CONF_VAR = "local_conf_var"
