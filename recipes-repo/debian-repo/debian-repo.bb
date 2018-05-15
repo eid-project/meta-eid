@@ -1,6 +1,4 @@
 inherit apt
-APT_REPOS = "${DEBIAN_REPOS}"
-APT_CODENAME = "${DEBIAN_CODENAME}"
 
 # overwritten by the anonymous function
 PACKAGES = ""

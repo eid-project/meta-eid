@@ -1,8 +1,8 @@
 APT_DIR = "${WORKDIR}/apt"
 APT_SOURCES_LIST = "${APT_DIR}/sources.list"
 
-APT_REPOS ?= ""
-APT_CODENAME ?= ""
+APT_REPOS ?= "${DEBIAN_REPOS}"
+APT_CODENAME ?= "${DEBIAN_CODENAME}"
 
 APT_OPTS ?= "-o Apt::Architecture=${DEBIAN_ARCH} \
              -o Dir::Etc::sourcelist=${APT_SOURCES_LIST} \
