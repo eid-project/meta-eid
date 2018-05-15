@@ -13,6 +13,8 @@ APT_OPTS ?= "-o Apt::Architecture=${DEBIAN_ARCH} \
             "
 
 apt_update() {
+	rm -rf ${APT_DIR}
+
 	bbnote "Creating apt working directory"
 	mkdir -p ${APT_DIR}
 	mkdir -p ${APT_DIR}/state
