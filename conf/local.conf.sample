@@ -1,2 +1,3 @@
-# dummy variable
-LOCAL_CONF_VAR = "local_conf_var"
+DEBIAN_REPOS = "http://ftp2.jp.debian.org/debian"
+DEBIAN_CODENAME = "jessie"
+DEBIAN_ARCH = "amd64"
