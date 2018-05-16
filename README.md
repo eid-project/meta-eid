@@ -10,9 +10,18 @@ infrastructure to build Debian packages with bitbake.
 How to use
 ==========
 
+Setup build environment.
+
     $ git clone git://git.yoctoproject.org/poky.git
     $ cd poky
     $ git clone https://github.com/zuka0828/meta-eid.git
     $ cd ..
     $ source ./poky/meta-eid/setup.sh
+
+Build extra sources.
+
     $ bitbake hello localfiles
+
+Build rootfs image.
+
+    $ bitbake debian-image
