@@ -16,6 +16,7 @@ Setup build environment.
     $ cd poky
     $ git clone https://github.com/zuka0828/meta-eid.git
     $ cd ..
+    $ ./poky/meta-eid/scripts/install-deps.sh
     $ source ./poky/meta-eid/setup.sh
 
 Build extra sources.
