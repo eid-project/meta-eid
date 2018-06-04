@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DEP_PKGS="python3 make gcc"
+DEP_PKGS="python3 make gcc wget"
 
 warn() {
 	echo "WARNING: ${@}"
