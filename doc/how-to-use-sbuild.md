@@ -9,6 +9,7 @@ Standard Usage
 ==============
 
 Install sbuild
+
 NOTE: debhelper is required to build source package with `sbuild` command
 
     $ sudo apt-get install sbuild debhelper
@@ -18,6 +19,7 @@ Add myself into sbuild user
     $ sudo sbuild-adduser ${USER}
 
 (Optional) Copy sbuild configuration template
+
     $ cp /usr/share/doc/sbuild/examples/example.sbuildrc ${HOME}.sbuildrc
 
 Log in again, then create chroot
@@ -33,6 +35,7 @@ Log in again, then create chroot
     (chroot) # exit
 
 Update sbuild environment
+
 (u: update, d: dist-upgrade, c: clean, a: autoclean, r: autoremove)
 
     $ sbuild-update -udcar buster
@@ -48,6 +51,7 @@ Build openssl (specifying version)
     $ sbuild -d buster openssl_1.1.0h-4
 
 Build bc (specifying .dsc)
+
     $ apt-get source -d bc
     $ sbuild -d buster bc_*.dsc
 
