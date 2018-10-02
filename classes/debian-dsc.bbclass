@@ -37,11 +37,34 @@ python __anonymous() {
                 break
             line = file.readline()
         file.close()
-    src_uri = d.getVar('SRC_URI', True) or ""
-    d.setVar('SRC_URI', src_uri + ' ' + ' '.join(files))
+
+    d.setVar('SRCPKG_URI', ' '.join(files))
 
 # TODO:
 # 1. Get the name of tarball and set SRC_URI (lightweight dsc backend) => Done
 # 2. Fetch tarball and derive 'debian/control' (full dsc backend)
 # 3. Extract fetched tarball and setup source tree
 }
+
+# remove the unneeded default value
+SRC_URI = ""
+
+# only fetch source package files in SRCPKG_URI separately from SRC_URI
+# so that do_unpack_srcpkg can simply unpack the source package
+python do_fetch_srcpkg() {
+    srcpkg_uri = (d.getVar('SRCPKG_URI', True) or '').split()
+    if len(srcpkg_uri) == 0:
+        return
+    try:
+        fetcher = bb.fetch2.Fetch(srcpkg_uri, d)
+        fetcher.download()
+    except bb.fetch2.BBFetchException as e:
+        raise bb.build.FuncFailed(e)
+}
+addtask fetch_srcpkg after do_fetch before do_unpack
+
+do_unpack_srcpkg[dirs] = "${WORKDIR}"
+do_unpack_srcpkg() {
+	dpkg-source -x ${DL_DIR}/${PN}_${PV}.dsc ${S}
+}
+addtask unpack_srcpkg after do_unpack before do_build
