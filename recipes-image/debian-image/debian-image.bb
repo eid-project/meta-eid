@@ -1,4 +1,4 @@
-# provided by debian-repo.bb
+# TODO: who is provider?
 RDEPENDS_DEBIAN = "openssh-server"
 
 # provided by individual recipes
