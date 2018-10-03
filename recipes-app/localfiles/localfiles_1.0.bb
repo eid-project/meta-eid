@@ -1,4 +1,4 @@
-inherit extra
+inherit debianize
 
 SRC_URI = "file://foo \
            file://foo.conf"
