@@ -1,12 +1,14 @@
 inherit debianize
+inherit sbuild
 
 SRC_URI = "file://hoge \
-           file://hoge.conf"
+           file://hoge.conf \
+           file://Makefile"
 
-# dummy install
-do_build() {
-	rm -rf ${D}
-	install -d ${D}/${bindir} ${D}/${sysconfdir}
-	install -m 0755 ${WORKDIR}/hoge ${D}/${bindir}
-	install -m 0644 ${WORKDIR}/hoge.conf ${D}/${sysconfdir}
+do_debianize_prepend() {
+	# setup source tree
+	install -d ${S}
+	install -m 0755 ${WORKDIR}/hoge ${S}
+	install -m 0644 ${WORKDIR}/hoge.conf ${S}
+	install -m 0644 ${WORKDIR}/Makefile ${S}
 }
