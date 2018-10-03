@@ -1,0 +1,4 @@
+#!/bin/sh
+
+source /etc/hoge.conf
+echo "${HOGE}"

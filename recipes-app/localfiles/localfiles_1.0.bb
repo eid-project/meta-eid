@@ -1,12 +1,12 @@
 inherit debianize
 
-SRC_URI = "file://foo \
-           file://foo.conf"
+SRC_URI = "file://hoge \
+           file://hoge.conf"
 
 # dummy install
 do_build() {
 	rm -rf ${D}
 	install -d ${D}/${bindir} ${D}/${sysconfdir}
-	install -m 0755 ${WORKDIR}/foo ${D}/${bindir}
-	install -m 0644 ${WORKDIR}/foo.conf ${D}/${sysconfdir}
+	install -m 0755 ${WORKDIR}/hoge ${D}/${bindir}
+	install -m 0644 ${WORKDIR}/hoge.conf ${D}/${sysconfdir}
 }
