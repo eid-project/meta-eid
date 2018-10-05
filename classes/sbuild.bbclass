@@ -40,7 +40,7 @@ do_sbuild () {
 
 	# TODO: sign repo with GPG key?
 	sbuild --arch ${DEBIAN_ARCH} -d ${DEBIAN_CODENAME} \
-		--extra-repository="deb [ allow-insecure=yes ] file:///build/repo buster main"
+		--extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///build/repo buster main"
 
 	install -d ${DEB_DIR}
 	for deb in ${S}/../*.deb; do
