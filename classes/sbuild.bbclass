@@ -20,18 +20,38 @@ EOF
 	reprepro -b ${APT_REPO_DIR} export
 }
 
+apt_repo_rm() {
+	DEBS=$(ls ${DEB_DIR} 2> /dev/null | sed "s@_.*@@")
+	if [ -z "${DEBS}" ]; then
+		return
+	fi
+	reprepro -b ${APT_REPO_DIR} remove ${DEBIAN_CODENAME} ${DEBS}
+}
+
+# FIXME: doesn't work as long as CLEANFUNCS execution code is
+# moved before removing ${WORKDIR} in do_clean. See e78850dc in Isar.
+CLEANFUNCS += "apt_repo_rm"
+
 do_sbuild[dirs] = "${S}"
 do_sbuild () {
+	rm -rf ${DEB_DIR}
+
 	apt_repo_init
 
 	# TODO: sign repo with GPG key?
 	sbuild --arch ${DEBIAN_ARCH} -d ${DEBIAN_CODENAME} \
 		--extra-repository="deb [ allow-insecure=yes ] file:///build/repo buster main"
+
+	install -d ${DEB_DIR}
+	for deb in ${S}/../*.deb; do
+		mv ${deb} ${DEB_DIR}
+	done
 }
 addtask sbuild after do_unpack_srcpkg before deploy_deb
 
 do_deploy_deb[dirs] = "${WORKDIR}"
 do_deploy_deb() {
-	reprepro -b ${APT_REPO_DIR} includedeb ${DEBIAN_CODENAME} ${WORKDIR}/*.deb
+	apt_repo_rm ${DEB_DIR}/*.deb
+	reprepro -b ${APT_REPO_DIR} includedeb ${DEBIAN_CODENAME} ${DEB_DIR}/*.deb
 }
 addtask deploy_deb after do_sbuild before do_build
