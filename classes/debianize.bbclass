@@ -17,5 +17,13 @@ do_debianize() {
 		deplist="${deplist}, ${dep}"
 	done
 	sed -i "s@^\(Build-Depends: .*\)@\1${deplist}@" ${S}/debian/control
+
+	# embed run-time dependencies in recipes into debian/control
+	deplist=""
+	for dep in ${DEB_RDEPENDS}; do
+		deplist="${deplist}, ${dep}"
+	done
+	# TODO: consider cases where there are multiple binary packages
+	sed -i "s@^\(Depends: .*\)@\1${deplist}@" ${S}/debian/control
 }
 addtask debianize after do_unpack before do_sbuild
