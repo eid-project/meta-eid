@@ -14,7 +14,7 @@ do_debianize() {
 	# embed build dependencies in recipes into debian/control
 	deplist=""
 	for dep in ${DEB_DEPENDS}; do
-		deplist=", ${dep}"
+		deplist="${deplist}, ${dep}"
 	done
 	sed -i "s@^\(Build-Depends: .*\)@\1${deplist}@" ${S}/debian/control
 }
