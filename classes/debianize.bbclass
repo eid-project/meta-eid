@@ -12,8 +12,11 @@ do_debianize() {
 	rm -f ${S}/debian/*.ex ${S}/debian/*.EX
 
 	# embed build dependencies in recipes into debian/control
+	# TODO: consider cases where there are multiple binary packages
 	deplist=""
-	for dep in ${DEB_DEPENDS}; do
+	# Recipes (assumes that they generates same name packages) in DEPENDS
+	# should be automatically added to Build-Depends
+	for dep in ${DEB_DEPENDS} ${DEPENDS}; do
 		deplist="${deplist}, ${dep}"
 	done
 	sed -i "s@^\(Build-Depends: .*\)@\1${deplist}@" ${S}/debian/control
@@ -23,7 +26,6 @@ do_debianize() {
 	for dep in ${DEB_RDEPENDS}; do
 		deplist="${deplist}, ${dep}"
 	done
-	# TODO: consider cases where there are multiple binary packages
 	sed -i "s@^\(Depends: .*\)@\1${deplist}@" ${S}/debian/control
 }
 addtask debianize after do_unpack before do_sbuild

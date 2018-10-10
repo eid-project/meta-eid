@@ -9,5 +9,5 @@ SRCREV = "063bf707a9bc0169469beec0681341ee296b5679"
 S = "${WORKDIR}/git"
 
 DEPENDS += "baz"
-DEB_DEPENDS = "baz libssl-dev"
+DEB_DEPENDS = "libssl-dev"
 DEB_RDEPENDS = "bc"
