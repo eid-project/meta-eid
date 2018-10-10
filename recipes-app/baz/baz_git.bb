@@ -4,6 +4,11 @@ inherit sbuild
 PV = "1.0"
 
 SRC_URI = "git://github.com/zuka0828/${PN}.git;protocol=https"
-SRCREV = "b19232112aa8828fd16eba6d4b69416a0a04d553"
+SRCREV = "759a1ce94da5a4702144f2058feb32af18c8a75e"
 
 S = "${WORKDIR}/git"
+
+do_debianize_append() {
+	echo "libbaz 1 baz" > ${S}/debian/baz.shlibs
+	echo "${libdir}/libbaz.so ${libdir}/libbaz.so.1" > ${S}/debian/baz.links
+}
