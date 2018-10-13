@@ -27,7 +27,11 @@ for var in DEBIAN_CODENAME DEBIAN_ARCH DEBIAN_REPOS; do
 	eval ${var}=${val}
 done
 
+# TODO: define schroot name particular to each build directory
+# to avoid creating duplicated schroot in one system,
+# or use --chroot-mode=unshare?
 sbuild-createchroot \
+	--chroot-suffix="-eid" \
 	${DEBIAN_CODENAME} \
 	${CHROOT_DIR}/${DEBIAN_CODENAME}-${DEBIAN_ARCH} \
 	${DEBIAN_REPOS} \
