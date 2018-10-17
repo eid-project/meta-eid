@@ -10,19 +10,41 @@ infrastructure to build Debian packages with bitbake.
 How to use
 ==========
 
-Setup build environment.
+Download build tools.
 
     $ git clone git://git.yoctoproject.org/poky.git
     $ cd poky
     $ git clone https://github.com/zuka0828/meta-eid.git
     $ cd ..
-    $ ./poky/meta-eid/scripts/install-deps.sh
+    $ sudo ./poky/meta-eid/scripts/install-deps.sh
+
+Register myself to sbuild user
+
+    $ sudo sbuild-adduser $(whoami)
+
+Setup build directory.
+
     $ source ./poky/meta-eid/setup.sh
+    $ sudo ../poky/meta-eid/scripts/setup-sbuild.sh
 
-Build extra sources.
+(Optional) Add proxy setting into the schroot.
+Please replace `http://your.proxy.server:1234` below.
 
-    $ bitbake hello localfiles
+    $ sudo sbuild-shell buster-amd64-eid
+    (chroot) # echo 'acquire::http::proxy "http://your.proxy.server:1234";' >> /etc/apt/apt.conf.d/proxy
+    (chroot) # exit
 
-Build rootfs image.
+Build Debian source package.
 
-    $ bitbake debian-image
+    $ bitbake hello
+
+Build non-Debianized source.
+This is the simplest recipe to build non-Debianized source.
+
+    $ bitbake localfiles
+
+Build non-Debianized source.
+This recipe fetches source code from remote, and has
+build & run-time dependencies on Debian packages and non-Debian package `baz`.
+
+    $ bitbake foo
