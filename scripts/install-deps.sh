@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DEP_PKGS="python3 sbuild dh-make reprepro"
+DEP_PKGS="python3 sbuild dh-make reprepro schroot"
 
 warn() {
 	echo "WARNING: ${@}"
