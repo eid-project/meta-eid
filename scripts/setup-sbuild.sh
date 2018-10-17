@@ -30,9 +30,15 @@ done
 # TODO: define schroot name particular to each build directory
 # to avoid creating duplicated schroot in one system,
 # or use --chroot-mode=unshare?
+CHROOT_SUFFIX="-eid"
+CHROOT_NAME="${DEBIAN_CODENAME}-${DEBIAN_ARCH}${CHROOT_SUFFIX}"
 sbuild-createchroot \
-	--chroot-suffix="-eid" \
+	--chroot-suffix="${CHROOT_SUFFIX}" \
 	${DEBIAN_CODENAME} \
-	${CHROOT_DIR}/${DEBIAN_CODENAME}-${DEBIAN_ARCH} \
+	${CHROOT_DIR}/${CHROOT_NAME} \
 	${DEBIAN_REPOS} \
 	|| die "sbuild-createchroot failed"
+
+if ! schroot -c ${CHROOT_NAME} -i > /dev/null; then
+	die "chroot ${CHROOT_NAME} is not correctly created"
+fi
