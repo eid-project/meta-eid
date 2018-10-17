@@ -19,6 +19,43 @@ meta-eid is now developed and tested on the following environment.
 How to use
 ==========
 
+meta-eid can be used in a docker container. This is the easiest way
+to ensure running in a validated environment.
+
+Another option is to run meta-eid directly on a Linux machine. Debian
+is recommended.
+
+Docker
+------
+
+Ensure that docker is installed on your machine.
+
+If http\_proxy, etc. is set as environment on your terminal it is
+redirected into the docker container.
+
+To build, start and change into the container:
+
+    $ make
+
+To setup meta-eid inside the container:
+
+    $ source ./poky/meta-eid/setup.sh
+
+Continue with 'Examples'
+
+Remember, containers are stateless.
+If you leave the container all changes inside the container are lost.
+To avoid this, use the following command on a second terminal:
+
+    $ docker commit eid eid-image:mysnapshot
+
+To start this snapshot:
+
+    $ IMAGENAME=eid-image:mysnapshot make
+
+Native
+------
+
 Download build tools.
 
     $ git clone git://git.yoctoproject.org/poky.git
@@ -35,6 +72,10 @@ Setup build directory.
 
     $ source ./poky/meta-eid/setup.sh
     $ sudo ../poky/meta-eid/scripts/setup-sbuild.sh
+
+
+Examples
+--------
 
 (Optional) Add proxy setting into the schroot.
 Please replace `http://your.proxy.server:1234` below.
