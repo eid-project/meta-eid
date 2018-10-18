@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/manut/meta-eid.svg?branch=master)](https://travis-ci.org/manut/meta-eid)
+
 meta-eid
 ========
 
