@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/manut/meta-eid.svg?branch=master)](https://travis-ci.org/manut/meta-eid)
+[![Build Status](https://travis-ci.org/zuka0828/meta-eid.svg?branch=master)](https://travis-ci.org/zuka0828/meta-eid)
 
 meta-eid
 ========

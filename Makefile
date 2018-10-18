@@ -12,7 +12,7 @@ start: .build
 	             --build-arg no_proxy=$(no_proxy) \
 	             -t $(IMAGENAME) . && touch .build
 
-test: .build
+test: clean .build
 	bash ./test.sh
 
 clean:
