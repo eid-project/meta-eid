@@ -11,4 +11,7 @@ start: .build
 	             --build-arg no_proxy=$(no_proxy) \
 	             -t $(IMAGENAME) . && touch .build
 
-.PHONY: start
+clean:
+	rm -f .build
+
+.PHONY: start clean
