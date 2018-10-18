@@ -5,7 +5,7 @@ do_sbuild[deptask] = "do_deploy_deb"
 
 apt_repo_init() {
 	# TODO: more functional check required
-	if [ -d ${APT_REPO_DIR} ]; then
+	if [ -d ${APT_REPO_DIR}/conf/distributions ]; then
 		return
 	fi
 
@@ -41,7 +41,7 @@ do_sbuild () {
 	# TODO: sign repo with GPG key?
 	sbuild --arch ${DEBIAN_ARCH} -d ${DEBIAN_CODENAME} \
 		-c ${DEBIAN_CODENAME}-${DEBIAN_ARCH}-eid \
-		--extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///build/repo buster main"
+		--extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main"
 
 	install -d ${DEB_DIR}
 	for deb in ${S}/../*.deb; do
