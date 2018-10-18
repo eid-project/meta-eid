@@ -1,9 +1,9 @@
 IMAGENAME ?= eid-image
 CNAME ?= eid
+DOCKERRUN ?=docker run -w /home/eid --cap-add SYS_ADMIN -u 1000 --rm --name $(CNAME)
 
 start: .build
-	docker run -w /home/eid --cap-add SYS_ADMIN -itu 1000 --name $(CNAME) $(IMAGENAME)
-	docker rm $(CNAME)
+	$(DOCKERRUN) -it $(IMAGENAME)
 
 .build:
 	docker build --build-arg http_proxy=$(http_proxy) \
