@@ -24,5 +24,5 @@ docker run \
 
 BITBAKE_TARGETS="hello localfiles foo"
 for bb in $BITBAKE_TARGETS; do
-	$E "source ./poky/meta-eid/setup.sh; bitbake $bb"
+	$E "source ./poky/meta-eid/setup.sh; USER=eid bitbake $bb"
 done
