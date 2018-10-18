@@ -58,7 +58,7 @@ Native
 
 Download build tools.
 
-    $ git clone git://git.yoctoproject.org/poky.git
+    $ git clone https://git.yoctoproject.org/git/poky.git
     $ cd poky
     $ git clone https://github.com/zuka0828/meta-eid.git
     $ cd ..

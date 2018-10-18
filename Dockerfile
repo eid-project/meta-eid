@@ -15,10 +15,10 @@ RUN echo "root:eid" | chpasswd
 RUN echo "%eid  ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/eidgrp
 RUN chmod 0440 /etc/sudoers.d/eidgrp
 
-RUN cd /home/eid ;\
-    su -c "git clone git://git.yoctoproject.org/poky.git" eid
-
 RUN apt-get install -y ca-certificates
+
+RUN cd /home/eid ;\
+    su -c "git clone https://git.yoctoproject.org/git/poky.git" eid
 
 RUN cd /home/eid/poky ;\
     su -c "git clone https://github.com/zuka0828/meta-eid.git" eid
