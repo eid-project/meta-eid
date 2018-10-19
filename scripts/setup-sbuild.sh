@@ -2,7 +2,7 @@
 
 # assumes to be called in the build directory
 LOCALCONF=$(pwd)/conf/local.conf
-CHROOT_BASE_DIR=$(pwd)
+CHROOT_BASE_DIR=$(pwd)/chroot
 
 die() {
 	echo "ERROR: ${@}"
