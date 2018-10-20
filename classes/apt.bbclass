@@ -1,7 +1,7 @@
 APT_DIR = "${WORKDIR}/apt"
 APT_SOURCES_LIST = "${APT_DIR}/sources.list"
 
-APT_REPOS ?= "${DEBIAN_REPOS}"
+APT_REPO ?= "${DEBIAN_REPO}"
 APT_CODENAME ?= "${DEBIAN_CODENAME}"
 
 APT_OPTS ?= "-o Apt::Architecture=${DEBIAN_ARCH} \
@@ -22,9 +22,7 @@ apt_update() {
 	mkdir -p ${APT_DIR}/cache
 
 	bbnote "Generating sources.list"
-	for repo in ${APT_REPOS}; do
-		echo "deb ${repo} ${APT_CODENAME} main" >> ${APT_SOURCES_LIST}
-	done
+	echo "deb ${APT_REPO} ${APT_CODENAME} main" >> ${APT_SOURCES_LIST}
 
 	bbnote "Running apt-get update"
 	apt-get ${APT_OPTS} update

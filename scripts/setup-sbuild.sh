@@ -18,7 +18,7 @@ if [ ! -f ${LOCALCONF} ]; then
 fi
 
 # pull variables defined in LOCALCONF
-for var in DEBIAN_CODENAME DEBIAN_ARCH DEBIAN_REPOS; do
+for var in DEBIAN_CODENAME DEBIAN_ARCH DEBIAN_REPO; do
 	val=$(grep "${var}\s*=" ${LOCALCONF} | tail -1 | \
 	      sed "s@${var}\s*=\s*\(.*\)@\1@")
 	if [ -z "${val}" ]; then
@@ -36,7 +36,7 @@ sbuild-createchroot \
 	--chroot-suffix="${CHROOT_SUFFIX}" \
 	${DEBIAN_CODENAME} \
 	${CHROOT_BASE_DIR}/${CHROOT_NAME} \
-	${DEBIAN_REPOS} \
+	${DEBIAN_REPO} \
 	|| die "sbuild-createchroot failed"
 
 if ! schroot -c ${CHROOT_NAME} -i > /dev/null; then
