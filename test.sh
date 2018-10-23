@@ -18,8 +18,11 @@ docker run \
 	$IMAGENAME
 
 # rebuild chroot
-$E "sudo rm -rf /etc/schroot/chroot.d/buster-amd64-eid* /home/eid/build/buster-amd64-eid"
-$E "source ./poky/meta-eid/setup.sh; sudo ../poky/meta-eid/scripts/setup-sbuild.sh"
+#$E "sudo rm -rf /etc/schroot/chroot.d/buster-amd64-eid* /home/eid/build/buster-amd64-eid"
+#$E "source ./poky/meta-eid/setup.sh; sudo ../poky/meta-eid/scripts/setup-sbuild.sh"
+
+# delete existing configuration
+$E "sudo rm -rf /home/eid/build/conf"
 
 BITBAKE_TARGETS="hello localfiles foo"
 for bb in $BITBAKE_TARGETS; do
