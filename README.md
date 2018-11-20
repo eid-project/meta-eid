@@ -58,7 +58,7 @@ Download build tools.
 
     $ git clone https://git.yoctoproject.org/git/poky.git
     $ cd poky
-    $ git clone https://github.com/zuka0828/meta-eid.git
+    $ git clone https://github.com/eid-project/meta-eid.git
     $ cd ..
     $ sudo ./poky/meta-eid/scripts/install-deps.sh
 
