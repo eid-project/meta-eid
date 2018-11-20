@@ -39,11 +39,7 @@ To build, start and change into the container:
 
     $ make
 
-To setup meta-eid inside the container:
-
-    $ source ./poky/meta-eid/setup.sh
-
-Continue with 'Examples'
+Continue with 'Setup Build Directory'.
 
 Remember, containers are stateless.
 If you leave the container all changes inside the container are lost.
@@ -70,21 +66,46 @@ Register myself to sbuild user
 
     $ sudo sbuild-adduser $(whoami)
 
-Setup build directory.
+Continue with 'Setup Build Directory'.
+
+Setup build directory
+---------------------
+
+Run the setup script.
 
     $ source ./poky/meta-eid/setup.sh
+
+If this is the first time to run this script,
+a new build directory `build` is created and
+you need to do the steps in 'Setup sbuild'.
+
+If `build` already exists (not the first time to run),
+the existing directory will be reused for the next build and
+you can skip 'Setup sbuild' and continue with 'Build Examples'.
+
+Setup sbuild
+------------
+
+NOTE: The following steps can be ignore if you've already done.
+
+Create a schroot into `build` based on the configuration in the `build`.
+
     $ sudo ../poky/meta-eid/scripts/setup-sbuild.sh
 
+This script creates a sbuild directory named
+`build/chroot/${DEBIAN_CODENAME}-${DEBIAN_ARCH}-eid`.
+(`${DEBIAN_CODENAME}` and `${DEBIAN_ARCH}` is defined in `build/local.conf`)
 
-Examples
---------
+(Optional) Add proxy setting into the schroot if you need.
+Please replace `http://your.proxy.server:1234` below to your proxy server.
 
-(Optional) Add proxy setting into the schroot.
-Please replace `http://your.proxy.server:1234` below.
+    $ sudo sh -c "echo 'acquire::http::proxy \"http://your.proxy.server:1234\";' \
+      > chroot/${DEBIAN_CODENAME}-${DEBIAN_ARCH}-eid/etc/apt/apt.conf.d/proxy"
 
-    $ sudo sbuild-shell buster-amd64-eid
-    (chroot) # echo 'acquire::http::proxy "http://your.proxy.server:1234";' >> /etc/apt/apt.conf.d/proxy
-    (chroot) # exit
+Continue with 'Build Examples'.
+
+Build examples
+--------------
 
 Build Debian source package.
 
