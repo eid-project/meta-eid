@@ -1,6 +1,15 @@
 IMAGENAME ?= eid-image
 CNAME ?= eid
-DOCKERRUN ?=docker run --workdir /home/eid --cap-add SYS_ADMIN -u 1000 --rm --name $(CNAME)
+DOCKERRUN ?= docker run \
+		--env http_proxy=$(http_proxy) \
+		--env https_proxy=$(https_proxy) \
+		--env no_proxy=$(no_proxy) \
+		--workdir /home/eid \
+		--cap-add SYS_ADMIN \
+		-u 1000 \
+		--rm \
+		--name $(CNAME)
+
 RUNTEST ?= $(DOCKERRUN) $(IMAGENAME) source ./poky/meta-eid/setup.sh;
 
 start: .build
