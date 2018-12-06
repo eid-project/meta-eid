@@ -25,7 +25,7 @@ meta-eid can be used in a docker container. This is the easiest way
 to ensure running in a validated environment.
 
 Another option is to run meta-eid directly on a Linux machine. Debian
-is recommended.
+is recommended. It is called [native method](#native).
 
 Docker
 ------
@@ -37,9 +37,23 @@ redirected into the docker container.
 
 To build, start and change into the container:
 
+    $ git clone https://git.yoctoproject.org/git/poky.git
+    $ cd poky
+    $ git clone https://github.com/eid-project/meta-eid.git
+    $ cd meta-eid
     $ make
+    (docker) $ source ./poky/meta-eid/setup.sh
 
-Continue with 'Setup Build Directory'.
+Some cleanup is needed since container pulled from Dockerhub contain
+previous build artifacts.
+
+    (docker) $ sudo rm -rf chroot
+    (docker) $ sudo rm -rf /etc/schroot/chroot.d/*
+    (docker) $ sudo ../poky/meta-eid/scripts/setup-sbuild.sh
+
+Now you can continue with [build examples](#build-examples).
+
+# Commit changes in made in container
 
 Remember, containers are stateless.
 If you leave the container all changes inside the container are lost.
