@@ -9,6 +9,26 @@ for bitbake to build Debian packages or other extra sources.
 This layer is just a working repository for finding better build
 infrastructure to build Debian packages with bitbake.
 
+Community Resources
+===================
+
+Project home
+------------
+
+* https://github.com/eid-project/meta-eid
+* Used to host code and track issues
+
+Testing
+-------
+
+* https://travis-ci.org/eid-project/meta-eid
+
+Mailing list
+------------
+
+* meta-eid@googlegroups.com
+* Used for patch review and technical discussions
+
 System Requirements
 ===================
 
