@@ -99,12 +99,6 @@ Run setup scripts.
     $ source ./poky/meta-eid/setup.sh
     $ sudo -E ../poky/meta-eid/scripts/setup-sbuild.sh
 
-(Optional) Add proxy setting into the schroot if you need.
-Please replace `http://your.proxy.server:1234` below to your proxy server.
-
-    $ sudo sh -c "echo 'acquire::http::proxy \"http://your.proxy.server:1234\";' \
-      > chroot/${DEBIAN_CODENAME}-${DEBIAN_ARCH}-eid/etc/apt/apt.conf.d/proxy"
-
 Now you can continue with [Build examples](#build-examples).
 
 Build examples

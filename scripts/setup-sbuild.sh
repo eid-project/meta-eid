@@ -48,3 +48,9 @@ fi
 APT_REPO_DIR=${CHROOT_BASE_DIR}/${CHROOT_NAME}/repo
 mkdir -p ${APT_REPO_DIR}
 chmod 777 ${APT_REPO_DIR}
+
+# automatically put HTTP proxy setting for apt into the schroot
+if [ -n "${http_proxy}" ]; then
+	sh -c "echo 'acquire::http::proxy \"${http_proxy}\";' > \
+		${CHROOT_BASE_DIR}/${CHROOT_NAME}/etc/apt/apt.conf.d/proxy"
+fi
