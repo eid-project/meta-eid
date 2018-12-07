@@ -1,2 +1,2 @@
 export TEMPLATECONF=meta-eid/conf
-source ./poky/oe-init-build-env
+source ./poky/oe-init-build-env ${1}
