@@ -6,6 +6,8 @@ DOCKERRUN ?= docker run \
 		--env no_proxy=$(no_proxy) \
 		--workdir /home/eid \
 		--cap-add SYS_ADMIN \
+		--security-opt seccomp:unconfined \
+		--security-opt apparmor:unconfined \
 		-u 1000 \
 		--rm \
 		--name $(CNAME)
