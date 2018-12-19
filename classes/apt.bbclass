@@ -4,7 +4,7 @@ APT_SOURCES_LIST = "${APT_DIR}/sources.list"
 APT_REPO ?= "${DEBIAN_REPO}"
 APT_CODENAME ?= "${DEBIAN_CODENAME}"
 
-APT_OPTS ?= "-o Apt::Architecture=${DEBIAN_ARCH} \
+APT_OPTS ?= "-o Apt::Architecture=${DEB_HOST_ARCH} \
              -o Dir::Etc::sourcelist=${APT_SOURCES_LIST} \
              -o Dir::State=${APT_DIR}/state \
              -o Dir::State::Status=${APT_DIR}/state/status \

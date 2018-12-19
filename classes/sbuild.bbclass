@@ -13,7 +13,7 @@ apt_repo_init() {
 	mkdir -p ${APT_REPO_DIR}/conf
 	cat << EOF > ${APT_REPO_DIR}/conf/distributions
 Codename: ${DEBIAN_CODENAME}
-Architectures: ${DEBIAN_ARCH}
+Architectures: ${DEB_HOST_ARCH}
 Components: main
 EOF
 	# sbuild requires repository data even if it's empty
@@ -39,9 +39,11 @@ do_sbuild () {
 	apt_repo_init
 
 	# TODO: sign repo with GPG key?
-	sbuild --arch ${DEBIAN_ARCH} -d ${DEBIAN_CODENAME} \
-		-c ${DEBIAN_CODENAME}-${DEBIAN_ARCH}-eid \
-		--extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main"
+	sbuild --host=${DEB_HOST_ARCH} \
+	       --build=${DEB_BUILD_ARCH} \
+	       -d ${DEBIAN_CODENAME} \
+	       -c ${CHROOT_NAME} \
+	       --extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main"
 
 	install -d ${DEB_DIR}
 	for deb in ${S}/../*.deb; do
