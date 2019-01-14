@@ -6,7 +6,7 @@ IMAGENAME=eid-image
 CNAME=eid
 META_EID_DIR=$(dirname $(readlink -f "$0"))
 
-E="docker exec -it -u1000 $CNAME /bin/bash -c "
+E="docker exec -u1000 $CNAME /bin/bash -c "
 
 docker run \
 	--env http_proxy="$http_proxy" \
