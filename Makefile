@@ -1,5 +1,6 @@
 IMAGENAME ?= eid-image
 CNAME ?= eid
+META_EID_DIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 DOCKERRUN ?= docker run \
 		--env http_proxy=$(http_proxy) \
 		--env https_proxy=$(https_proxy) \
@@ -8,6 +9,7 @@ DOCKERRUN ?= docker run \
 		--cap-add SYS_ADMIN \
 		--security-opt seccomp:unconfined \
 		--security-opt apparmor:unconfined \
+		-v $(META_EID_DIR):/home/eid/poky/meta-eid:ro \
 		-u 1000 \
 		--rm \
 		--name $(CNAME)

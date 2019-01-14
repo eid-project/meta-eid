@@ -4,12 +4,14 @@ set -xe
 
 IMAGENAME=eid-image
 CNAME=eid
+META_EID_DIR=$(dirname $(readlink -f "$0"))
 
 E="docker exec -it -u1000 $CNAME /bin/bash -c "
 
 docker run \
 	--workdir /home/eid \
 	--cap-add SYS_ADMIN \
+	-v $META_EID_DIR:/home/eid/poky/meta-eid:ro \
 	-u1000 \
 	--rm \
 	-i \
