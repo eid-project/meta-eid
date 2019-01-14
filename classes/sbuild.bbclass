@@ -32,6 +32,8 @@ apt_repo_rm() {
 # moved before removing ${WORKDIR} in do_clean. See e78850dc in Isar.
 CLEANFUNCS += "apt_repo_rm"
 
+EXTRA_SBUILDCONF ??= ""
+
 do_sbuild[dirs] = "${S}"
 do_sbuild () {
 	rm -rf ${DEB_DIR}
@@ -43,7 +45,8 @@ do_sbuild () {
 	       --build=${DEB_BUILD_ARCH} \
 	       -d ${DEBIAN_CODENAME} \
 	       -c ${CHROOT_NAME} \
-	       --extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main"
+	       --extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main" \
+	       ${EXTRA_SBUILDCONF}
 
 	install -d ${DEB_DIR}
 	for deb in ${S}/../*.deb; do
