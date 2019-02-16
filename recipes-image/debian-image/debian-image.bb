@@ -10,6 +10,7 @@ DEB_RDEPENDS = "openssh-server"
 
 # packages in the local apt repository provided by individual recipes
 RDEPENDS = "hello foo"
+do_build[rdeptask] = "do_deploy_deb"
 
 # TODO: If multiple repositories provide the same package,
 # the highest version is selected even if the local repository
