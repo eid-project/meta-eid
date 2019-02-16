@@ -3,7 +3,7 @@ inherit sbuild
 
 PV = "1.0"
 
-SRC_URI = "git://github.com/zuka0828/${PN}.git;protocol=https"
+SRC_URI = "git://github.com/eid-project/${PN}.git;protocol=https"
 SRCREV = "759a1ce94da5a4702144f2058feb32af18c8a75e"
 
 S = "${WORKDIR}/git"
