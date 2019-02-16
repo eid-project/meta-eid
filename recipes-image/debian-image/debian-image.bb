@@ -27,6 +27,10 @@ CHROOT = "${SUDO} chroot ${ROOTFS}"
 
 # TODO: drop root privilege using fakeroot/fakechroot
 do_build() {
+	if [ -d ${ROOTFS} ]; then
+		bbnote "Cleaning old rootfs directory"
+		${SUDO} rm -r ${ROOTFS}
+	fi
 	bbnote "Running debootstrap"
 	${SUDO} debootstrap ${DEBIAN_CODENAME} ${ROOTFS} ${DEBIAN_REPO}
 
