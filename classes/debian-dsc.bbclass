@@ -3,10 +3,16 @@
 # Copyright (C) 2018 Alexander Smirnov
 
 python __anonymous() {
-    # Fetch .dsc package file
-    dsc_uri = (d.getVar('DSC_URI', True) or "").split()
+    # Parse DSC_URI and its checksums
+    dsc_uri = (d.getVar("DSC_URI", True) or "").split()
     if len(dsc_uri) == 0:
-        return
+        bb.fatal("DSC_URI not set")
+    elif len(dsc_uri) > 1:
+        bb.fatal("more than two values set in DSC_URI")
+    # TODO: it would be better if the values of d.getVarFlag("DSC_URI", "*sum")
+    # are passed to bb.fetch2.Fetch() automatically
+
+    # Fetch .dsc package file
     try:
         fetcher = bb.fetch2.Fetch(dsc_uri, d)
         fetcher.download()
@@ -21,6 +27,7 @@ python __anonymous() {
     files = []
 
     # Parse .dsc for the important fields
+    # TODO: Parse checksums of all files here and pass them to SRCPKG_URI
     with open(filepath, 'r') as file:
         line = file.readline()
         while line:
