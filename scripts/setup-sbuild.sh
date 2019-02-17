@@ -27,11 +27,10 @@ for var in DEBIAN_CODENAME DEBIAN_REPO; do
 	eval ${var}=${val}
 done
 
-# TODO: define schroot name particular to each build directory
-# to avoid creating duplicated schroot in one system,
-# or use --chroot-mode=unshare?
 DEB_BUILD_ARCH=`dpkg --print-architecture`
-CHROOT_SUFFIX="-eid"
+# define schroot name particular to each build directory because
+# schroot doesn't permit to create duplicated named chroot in a system
+CHROOT_SUFFIX="-$(pwd | md5sum | cut -c 1-8)"
 CHROOT_NAME="${DEBIAN_CODENAME}-${DEB_BUILD_ARCH}${CHROOT_SUFFIX}"
 sbuild-createchroot \
 	--arch=${DEB_BUILD_ARCH} \
@@ -44,6 +43,15 @@ sbuild-createchroot \
 if ! schroot -c ${CHROOT_NAME} -i > /dev/null; then
 	die "chroot ${CHROOT_NAME} is not correctly created"
 fi
+
+# tell sbuild information to bitbake
+cat <<EOF > ${CHROOT_BASE_DIR}/sbuild.conf || \
+	die "failed to generate sbuild.conf"
+# exported by setup-sbuild.sh
+CHROOT_SUFFIX = "${CHROOT_SUFFIX}"
+CHROOT_NAME = "${CHROOT_NAME}"
+CHROOT_DIR = "${CHROOT_BASE_DIR}/${CHROOT_NAME}"
+EOF
 
 # TODO: any other better places where
 # the script doesn't need to care the permission?
