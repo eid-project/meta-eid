@@ -32,6 +32,8 @@ apt_repo_rm() {
 # moved before removing ${WORKDIR} in do_clean. See e78850dc in Isar.
 CLEANFUNCS += "apt_repo_rm"
 
+# each recipe can specify own sbuild options like:
+# --profiles=cross, --debbuildopt=nostrip, --no-clean-source
 EXTRA_SBUILDCONF ??= ""
 
 do_sbuild[dirs] = "${S}"
