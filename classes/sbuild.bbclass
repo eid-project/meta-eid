@@ -42,12 +42,15 @@ do_sbuild () {
 
 	apt_repo_init
 
-	# TODO: sign repo with GPG key?
+	# TODO:
+	# - sign repo with GPG key?
+	# - lintian temporally disabled to reduce build-time
 	sbuild --host=${DEB_HOST_ARCH} \
 	       --build=${DEB_BUILD_ARCH} \
 	       -d ${DEBIAN_CODENAME} \
 	       -c ${CHROOT_NAME} \
 	       --extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main" \
+	       --no-run-lintian \
 	       ${EXTRA_SBUILDCONF}
 
 	install -d ${DEB_DIR}
