@@ -36,7 +36,7 @@ def die(msg):
     RED = '\033[91m'
     BLD_RED = '\033[1;91m'
     RST = '\033[0m'
-    msg = "".join([BLD_RED, 'ERROR', RST, RED, ': ', msg])
+    msg = "".join([BLD_RED, 'ERROR', RST, RED, ': ', msg, RST])
     sys.exit(msg)
 
 
