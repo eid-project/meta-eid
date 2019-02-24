@@ -35,6 +35,8 @@ CHROOT_NAME="${DEBIAN_CODENAME}-${DEB_BUILD_ARCH}${CHROOT_SUFFIX}"
 sbuild-createchroot \
 	--arch=${DEB_BUILD_ARCH} \
 	--chroot-suffix="${CHROOT_SUFFIX}" \
+	--include=eatmydata \
+	--command-prefix=eatmydata \
 	${DEBIAN_CODENAME} \
 	${CHROOT_BASE_DIR}/${CHROOT_NAME} \
 	${DEBIAN_REPO} \
