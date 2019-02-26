@@ -14,19 +14,6 @@ Simplify sbuild setup
 Cross-building
 ==============
 
-Support cross-building applications
------------------------------------
-
-* Cross-building the following recipes fails when `DEB_HOST_ARCH = armhf`
-    * `hello`, `foo`, `bar`
-* Error in `dh_shlibdeps` (`debian/rules binary`):
-
-```
-dpkg-shlibdeps: error: canno find library libc.so.6 needed by debian/hello/usr/bin/hello (ELF format: 'elf32-littlearm' abi: '0101002800000000'; RPATH: '')
-dpkg-shlibdeps: error: canno find library ld-linux-armhf.so.3 needed by debian/hello/usr/bin/hello (ELF format: 'elf32-littlearm' abi: '0101002800000000'; RPATH: '')
-dpkg-shlibdeps: error: cannot continue due to the errors listed above
-```
-
 Image generation for foreign architectures
 ------------------------------------------
 
