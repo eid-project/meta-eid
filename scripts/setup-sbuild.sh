@@ -42,6 +42,24 @@ sbuild-createchroot \
 	${DEBIAN_REPO} \
 	|| die "sbuild-createchroot failed"
 
+# /home directory needs to be bind mounted in schroot so that
+# the raw-build recipes requires WORKDIR.
+# Need to create the custom schroot profile here based on "sbuild" because
+# there is no option provided by sbuild-createchroot to
+# use specific schroot profile created by generic users.
+if [ ! -d /etc/schroot/eid ]; then
+	cp -a /etc/schroot/sbuild /etc/schroot/eid || \
+		die "failed to copy schroot sbuild profile"
+	echo "/home /home none rw,bind 0 0" >> /etc/schroot/eid/fstab || \
+		die "failed to append /home bind mount setting"
+fi
+
+# schroot profile cannot be overwritten by "-o profile=xxx", so
+# need to overwrite the profile value defined in the default config.
+# Also, the path "/etc/schroot/chroot.d" is hard coded in schroot, so
+# there is no way to use custom configs created by generic users.
+sed -i "s@^profile=sbuild@profile=eid@" /etc/schroot/chroot.d/${CHROOT_NAME}-*
+
 if ! schroot -c ${CHROOT_NAME} -i > /dev/null; then
 	die "chroot ${CHROOT_NAME} is not correctly created"
 fi
