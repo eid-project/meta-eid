@@ -51,6 +51,7 @@ do_sbuild () {
 	       -c ${CHROOT_NAME} \
 	       --extra-repository="deb [ allow-insecure=yes trusted=yes ] file:///repo buster main" \
 	       --no-run-lintian \
+	       ${PARALLEL_MAKE} \
 	       ${EXTRA_SBUILDCONF}
 
 	install -d ${DEB_DIR}
