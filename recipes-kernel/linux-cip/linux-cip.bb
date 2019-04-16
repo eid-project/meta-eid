@@ -5,17 +5,16 @@ SRCREV = "c312fd1d432e36f9012127fe3c1d2b7023afae48"
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/cip/linux-cip.git;;branch=linux-4.19.y-cip;protocol=https"
 
-DEB_DEPENDS = "bison flex libelf-dev bc libssl-dev"
+DEB_DEPENDS += "bison flex libelf-dev bc libssl-dev"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
 
-# TODO: define arch based on machine config
-LINUX_DEFCONFIG = "${S}/arch/x86/configs/x86_64_defconfig"
-LINUX_CONFIG = ""
+LINUX_DEFCONFIG ?= ""
+LINUX_DEFCONFIG_qemux86-64 ?= "${S}/arch/x86/configs/x86_64_defconfig"
+LINUX_DEFCONFIG_qemuarm ?= "${S}/arch/arm/configs/vexpress_defconfig"
 
-ARCH = "x86"
-CROSS_COMPILE = ""
+LINUX_CONFIG ?= ""
 
 # TODO: consider adding LOADADDR=${LOADADDR}, V=${V}
 OPTS = " \
@@ -32,6 +31,8 @@ do_raw_build() {
 
 	# setup config
 	# TODO: use merge_config in OE-Core
+	bbnote "LINUX_DEFCONFIG: ${LINUX_DEFCONFIG}"
+	bbnote "LINUX_CONFIG: ${LINUX_CONFIG}"
 	cat ${LINUX_DEFCONFIG} ${LINUX_CONFIG} > ${B}/.config
 	${SCH} make ${OPTS} oldconfig
 
