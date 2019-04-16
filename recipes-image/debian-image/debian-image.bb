@@ -26,7 +26,8 @@ SUDO = "sudo -E http_proxy=${http_proxy}"
 CHROOT = "${SUDO} chroot ${ROOTFS}"
 
 # TODO: drop root privilege using fakeroot/fakechroot
-do_build() {
+do_rootfs[dirs] = "${WORKDIR}"
+do_rootfs() {
 	if [ -d ${ROOTFS} ]; then
 		bbnote "Cleaning old rootfs directory"
 		${SUDO} rm -r ${ROOTFS}
@@ -50,3 +51,4 @@ do_build() {
 
 	# TODO: Run postinst commands, and generate the final rootfs image (ext4, tarball, etc.)
 }
+addtask rootfs before do_build
