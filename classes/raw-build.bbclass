@@ -4,6 +4,8 @@ inherit common
 SCH = "schroot -c ${CHROOT_NAME} -d ${WORKDIR} -- "
 SCH_ROOT = "schroot -c ${CHROOT_NAME} -d ${WORKDIR} -u root -- "
 
+DEB_DEPENDS = "${@bb.utils.contains('DEB_CROSS', '1', 'crossbuild-essential-${DEB_HOST_ARCH}', '', d)}"
+
 do_install_builddep() {
 	${SCH_ROOT} apt install -y ${DEB_DEPENDS}
 }

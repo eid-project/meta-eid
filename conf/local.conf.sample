@@ -1,3 +1,4 @@
 DEBIAN_REPO = "http://deb.debian.org/debian"
 DEBIAN_CODENAME = "buster"
-DEB_HOST_ARCH = "amd64"
+
+MACHINE = "qemux86-64"
