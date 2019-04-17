@@ -49,6 +49,14 @@ do_rootfs() {
 	bbnote "Installing required packages"
 	${CHROOT} apt install -y ${INSTALL_PKGS}
 
-	# TODO: Run postinst commands, and generate the final rootfs image (ext4, tarball, etc.)
+	# TODO: Run postinst commands
+
+	# deploy tarball
+	mkdir -p ${DEPLOY_DIR}
+	bbnote "Packing rootfs"
+	cd ${ROOTFS}
+	${SUDO} tar czf ${DEPLOY_DIR}/${PN}-${MACHINE}.tar.gz .
+
+	# TODO: generate the final rootfs image (ext4, tarball, etc.)
 }
 addtask rootfs before do_build
