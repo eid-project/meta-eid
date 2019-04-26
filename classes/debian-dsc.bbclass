@@ -3,6 +3,8 @@
 # Copyright (C) 2018 Alexander Smirnov
 
 python __anonymous() {
+    import re
+
     # Parse DSC_URI and its checksums
     dsc_uri = (d.getVar("DSC_URI", True) or "").split()
     if len(dsc_uri) == 0:
@@ -34,6 +36,8 @@ python __anonymous() {
             # Get package version and export PV
             if line.startswith('Version:'):
                 pv = line.split(": ")[-1].rstrip()
+                # Remove epoch
+                pv = re.sub(r'^\S*:', '', pv)
                 d.setVar('PV', pv)
             elif line.startswith('Files:'):
                 line = file.readline()
