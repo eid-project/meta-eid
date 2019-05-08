@@ -42,8 +42,9 @@ python __anonymous() {
             elif line.startswith('Files:'):
                 line = file.readline()
                 while line and line.startswith(' '):
+                    md5sum = line.split()[0]
                     f = line.split()[2]
-                    files.append(repo + f)
+                    files.append(repo + f + ";md5sum=" + md5sum)
                     line = file.readline()
                 break
             line = file.readline()
